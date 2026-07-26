@@ -1,0 +1,116 @@
+@model SafeXChat.Models.JobCreateViewModel
+@{
+    ViewData["Title"] = "Post a New Job";
+    var skillsList = new List<string> { "React", "SQL Server", "ASP.NET Core", "Angular", "Vue", "Node.js", "Python", "Java", "C#", "TypeScript", "DevOps", "Docker", "Machine Learning", "UI/UX Design" };
+}
+
+<div class="row justify-content-center animate-fade-in">
+    <div class="col-lg-8 col-md-10">
+        <div class="card glass-card border-0 shadow-lg">
+            <div class="card-header card-header-gradient">
+                <h3 class="mb-1 fw-bold">Post a New Freelance Job</h3>
+                <p class="mb-0 text-white-50">Create an opportunities post to attract top freelance talent.</p>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" asp-controller="Job" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 glass-card p-3 mb-4"></div>
+
+                    <!-- Job Title -->
+                    <div class="mb-4">
+                        <label asp-for="JobTitle" class="form-label fw-600">Job Title</label>
+                        <input asp-for="JobTitle" class="form-control form-control-lg bg-light border-0 shadow-sm" placeholder="e.g. Senior Fullstack Developer (ASP.NET & React)" style="border-radius: 10px;" />
+                        <span asp-validation-for="JobTitle" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-4">
+                        <label asp-for="Description" class="form-label fw-600">Detailed Description</label>
+                        <textarea asp-for="Description" class="form-control bg-light border-0 shadow-sm" rows="6" placeholder="Describe the responsibilities, scope, milestones, and deliverables..." style="border-radius: 10px;"></textarea>
+                        <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="row">
+                        <!-- Budget -->
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Budget" class="form-label fw-600">Budget ($)</label>
+                            <input asp-for="Budget" type="number" step="0.01" class="form-control bg-light border-0 shadow-sm" placeholder="e.g. 1500.00" style="border-radius: 10px;" />
+                            <span asp-validation-for="Budget" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <!-- Duration -->
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Duration" class="form-label fw-600">Estimated Duration</label>
+                            <input asp-for="Duration" class="form-control bg-light border-0 shadow-sm" placeholder="e.g. 3 Months, 2 Weeks" style="border-radius: 10px;" />
+                            <span asp-validation-for="Duration" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Experience Level -->
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="ExperienceLevel" class="form-label fw-600">Experience Level</label>
+                            <select asp-for="ExperienceLevel" class="form-select bg-light border-0 shadow-sm" style="border-radius: 10px; height: 50px;">
+                                <option value="" disabled selected>Select level...</option>
+                                <option value="Entry Level">Entry Level (Junior)</option>
+                                <option value="Intermediate">Intermediate (Mid-level)</option>
+                                <option value="Expert">Expert (Senior)</option>
+                            </select>
+                            <span asp-validation-for="ExperienceLevel" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <!-- Work Mode -->
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="WorkMode" class="form-label fw-600">Work Mode</label>
+                            <select asp-for="WorkMode" class="form-select bg-light border-0 shadow-sm" style="border-radius: 10px; height: 50px;">
+                                <option value="" disabled selected>Select mode...</option>
+                                <option value="Remote">Remote</option>
+                                <option value="Onsite">Onsite</option>
+                            </select>
+                            <span asp-validation-for="WorkMode" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Deadline -->
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Deadline" class="form-label fw-600">Application Deadline</label>
+                            <input asp-for="Deadline" type="date" class="form-control bg-light border-0 shadow-sm" style="border-radius: 10px;" />
+                            <span asp-validation-for="Deadline" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <!-- Attachments -->
+                        <div class="col-md-6 mb-4">
+                            <label asp-for="Attachment" class="form-label fw-600">Upload Attachment</label>
+                            <input asp-for="Attachment" type="file" class="form-control bg-light border-0 shadow-sm" style="border-radius: 10px;" />
+                            <span asp-validation-for="Attachment" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+
+                    <!-- Required Skills Multi-select -->
+                    <div class="mb-4">
+                        <label asp-for="SelectedSkills" class="form-label fw-600">Required Skills (Select multiple by holding Ctrl/Cmd)</label>
+                        <select asp-for="SelectedSkills" class="form-select bg-light border-0 shadow-sm" multiple="multiple" style="border-radius: 10px; min-height: 140px; padding: 10px;">
+                            @foreach (var skill in skillsList)
+                            {
+                                <option value="@skill">@skill</option>
+                            }
+                        </select>
+                        <span asp-validation-for="SelectedSkills" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <!-- Submit & Cancel Buttons -->
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <a href="/Job" class="btn btn-outline-custom d-flex align-items-center">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn btn-gradient d-flex align-items-center">
+                            Post Job Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
