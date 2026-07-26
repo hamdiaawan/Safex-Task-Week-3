@@ -10,6 +10,7 @@ namespace SafeXChat.Data
         public DbSet<Conversation> Conversations { get; set; } = null!;
         public DbSet<Message> Messages { get; set; } = null!;
         public DbSet<UserConnection> UserConnections { get; set; } = null!;
+        public DbSet<Job> Jobs { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

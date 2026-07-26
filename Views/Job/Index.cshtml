@@ -1,0 +1,83 @@
+@model IEnumerable<SafeXChat.Models.Job>
+@{
+    ViewData["Title"] = "Open Freelance Opportunities";
+}
+
+<div class="animate-fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+        <div>
+            <h1 class="fw-bold mb-1" style="background: linear-gradient(135deg, #1f2937 0%, #4b5563 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Explore Opportunities
+            </h1>
+            <p class="text-muted mb-0">Browse approved freelance projects and submit your applications.</p>
+        </div>
+        <a href="/Job/Create" class="btn btn-gradient btn-lg d-flex align-items-center">
+            <i class="bi bi-plus-circle-fill me-2"></i>Create Job Posting
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 glass-card p-5 border-0">
+            <div class="mb-4">
+                <i class="bi bi-cloud-slash text-muted" style="font-size: 5rem;"></i>
+            </div>
+            <h4 class="fw-bold text-gray-700">No Open Jobs Available</h4>
+            <p class="text-muted">There are no approved job listings active right now. Please check back later or post a new request!</p>
+            <a href="/Job/Create" class="btn btn-gradient mt-3">Post the First Job</a>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var job in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 glass-card border-0 d-flex flex-column">
+                        <div class="card-body p-4 flex-grow-1">
+                            <!-- Job WorkMode & Level Badges -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge @(job.WorkMode == "Remote" ? "bg-success-subtle text-success" : "bg-warning-subtle text-warning") px-3 py-2" style="border-radius: 8px; font-weight: 600; font-size: 0.8rem;">
+                                    @job.WorkMode
+                                </span>
+                                <span class="badge bg-secondary-subtle text-secondary px-3 py-2" style="border-radius: 8px; font-weight: 600; font-size: 0.8rem;">
+                                    @job.ExperienceLevel
+                                </span>
+                            </div>
+
+                            <!-- Title -->
+                            <h4 class="card-title fw-bold mb-3 text-dark text-truncate" title="@job.JobTitle">@job.JobTitle</h4>
+
+                            <!-- Required Skills -->
+                            <div class="mb-4 text-truncate">
+                                @foreach (var skill in job.RequiredSkills.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    <span class="badge bg-light text-dark border me-1 my-1" style="font-weight: 500; font-size: 0.75rem;">@skill.Trim()</span>
+                                }
+                            </div>
+
+                            <!-- Details list -->
+                            <div class="row g-2 mb-3 py-2 border-top border-bottom text-muted" style="font-size: 0.88rem;">
+                                <div class="col-6 d-flex align-items-center">
+                                    <i class="bi bi-currency-dollar me-2 text-primary"></i>
+                                    <span><strong>$@job.Budget.ToString("N2")</strong></span>
+                                </div>
+                                <div class="col-6 d-flex align-items-center">
+                                    <i class="bi bi-calendar3 me-2 text-primary"></i>
+                                    <span><strong>@job.Duration</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                            <a href="/Job/Details/@job.Id" class="btn btn-outline-custom w-100 d-flex justify-content-center align-items-center">
+                                View Details <i class="bi bi-arrow-right-short ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

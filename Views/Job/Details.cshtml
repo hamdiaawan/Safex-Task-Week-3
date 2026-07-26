@@ -1,0 +1,101 @@
+@model SafeXChat.Models.Job
+@{
+    ViewData["Title"] = Model.JobTitle;
+}
+
+<div class="row g-4 animate-fade-in">
+    <!-- Breadcrumbs / Back button -->
+    <div class="col-12 mb-2">
+        <a href="/Job" class="btn btn-light border shadow-sm px-4 py-2" style="border-radius: 10px; font-weight: 500;">
+            <i class="bi bi-arrow-left me-2 text-primary"></i>Back to Listings
+        </a>
+    </div>
+
+    <!-- Main Content: Description and Skills -->
+    <div class="col-lg-8">
+        <div class="card glass-card border-0 p-4 p-md-5 shadow-lg h-100">
+            <h1 class="fw-bold mb-3">@Model.JobTitle</h1>
+            
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <span class="badge @(Model.WorkMode == "Remote" ? "bg-success-subtle text-success" : "bg-warning-subtle text-warning") px-3 py-2" style="border-radius: 8px; font-weight: 600;">
+                    <i class="bi @(Model.WorkMode == "Remote" ? "bi-laptop" : "bi-building") me-1"></i>@Model.WorkMode
+                </span>
+                <span class="badge bg-primary-subtle text-primary px-3 py-2" style="border-radius: 8px; font-weight: 600;">
+                    <i class="bi bi-bar-chart-fill me-1"></i>@Model.ExperienceLevel
+                </span>
+                <span class="badge bg-info-subtle text-info px-3 py-2" style="border-radius: 8px; font-weight: 600;">
+                    <i class="bi bi-clock-history me-1"></i>@Model.Duration
+                </span>
+            </div>
+
+            <hr class="my-4 text-muted" />
+
+            <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-card-text me-2 text-primary"></i>Project Description</h4>
+            <div class="text-secondary lh-lg mb-5" style="white-space: pre-wrap; font-size: 1.05rem;">
+                @Model.Description
+            </div>
+
+            <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-tags-fill me-2 text-primary"></i>Required Skills</h4>
+            <div class="d-flex flex-wrap gap-2">
+                @foreach (var skill in Model.RequiredSkills.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    <span class="badge bg-light text-dark border-secondary border px-3 py-2 fs-7" style="font-weight: 500; border-radius: 8px;">@skill.Trim()</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar: Job Quick Facts / Attachment -->
+    <div class="col-lg-4">
+        <div class="card glass-card border-0 p-4 shadow-lg mb-4">
+            <h4 class="fw-bold mb-4"><i class="bi bi-info-circle-fill me-2 text-primary"></i>Quick Summary</h4>
+            
+            <div class="d-flex align-items-center mb-3 p-3 bg-light" style="border-radius: 12px;">
+                <div class="bg-primary text-white rounded-circle p-2 d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                    <i class="bi bi-currency-dollar fs-5"></i>
+                </div>
+                <div>
+                    <small class="text-muted d-block uppercase tracking-wider" style="font-size: 0.75rem; font-weight: 700;">BUDGET</small>
+                    <span class="fw-bold fs-5 text-dark">$@Model.Budget.ToString("N2")</span>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center mb-3 p-3 bg-light" style="border-radius: 12px;">
+                <div class="bg-warning text-white rounded-circle p-2 d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                    <i class="bi bi-calendar-check fs-5"></i>
+                </div>
+                <div>
+                    <small class="text-muted d-block uppercase tracking-wider" style="font-size: 0.75rem; font-weight: 700;">DEADLINE</small>
+                    <span class="fw-bold text-dark">@Model.Deadline.ToString("MMMM dd, yyyy")</span>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center mb-4 p-3 bg-light" style="border-radius: 12px;">
+                <div class="bg-info text-white rounded-circle p-2 d-flex justify-content-center align-items-center me-3" style="width: 45px; height: 45px;">
+                    <i class="bi bi-briefcase fs-5"></i>
+                </div>
+                <div>
+                    <small class="text-muted d-block uppercase tracking-wider" style="font-size: 0.75rem; font-weight: 700;">EXPERIENCE REQUIRED</small>
+                    <span class="fw-bold text-dark">@Model.ExperienceLevel</span>
+                </div>
+            </div>
+
+            <!-- Attachment section -->
+            <div class="mt-4 border-top pt-4">
+                <h5 class="fw-bold mb-3"><i class="bi bi-paperclip me-2 text-primary"></i>Project File</h5>
+                @if (!string.IsNullOrEmpty(Model.AttachmentPath))
+                {
+                    <a href="@Model.AttachmentPath" target="_blank" class="btn btn-outline-custom w-100 d-flex justify-content-center align-items-center py-2" download>
+                        <i class="bi bi-download me-2"></i>Download Attachment
+                    </a>
+                }
+                else
+                {
+                    <div class="alert alert-secondary border-0 p-2 text-center text-muted" style="border-radius: 10px; font-size: 0.88rem;">
+                        <i class="bi bi-slash-circle me-1"></i>No attachments provided.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

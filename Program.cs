@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using SafeXChat.Data;
 using SafeXChat.Hubs;
+using SafeXChat.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -25,7 +27,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("DevCors");
-app.UseDefaultFiles();
+//app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();

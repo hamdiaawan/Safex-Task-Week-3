@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SafeX Freelancing</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --accent-glow: 0 8px 30px rgba(124, 58, 237, 0.15);
+            --card-hover-shadow: 0 15px 35px rgba(124, 58, 237, 0.2);
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.4);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at 10% 20%, rgba(243, 244, 246, 1) 0%, rgba(229, 231, 235, 0.4) 90.1%);
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #4f46e5;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #d1d5db !important;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            color: #a78bfa !important;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 2px;
+            background: #a78bfa;
+            border-radius: 2px;
+        }
+
+        .btn-gradient {
+            background: var(--primary-gradient);
+            color: #ffffff !important;
+            border: none;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 0.6rem 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--accent-glow);
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-outline-custom {
+            border: 2px solid #4f46e5;
+            color: #4f46e5;
+            background: transparent;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 0.5rem 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-custom:hover {
+            background: #4f46e5;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .main-container {
+            flex: 1;
+            padding: 3rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            border-top: 1px solid #1f2937;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Premium Glassmorphic Cards */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            box-shadow: var(--accent-glow);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .card-header-gradient {
+            background: var(--primary-gradient);
+            color: white;
+            border-top-left-radius: 19px !important;
+            border-top-right-radius: 19px !important;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+
+        /* Micro-animations */
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">SafeX </a>
+                <button class="navbar-expand-lg navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Job">Jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.html">Chat Demo</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container main-container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm glass-card p-3 mb-4 d-flex align-items-center" role="alert" style="border-left: 5px solid #10b981 !important;">
+                <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                <div class="flex-grow-1 fw-500">
+                    @TempData["SuccessMessage"]
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm glass-card p-3 mb-4 d-flex align-items-center" role="alert" style="border-left: 5px solid #ef4444 !important;">
+                <i class="bi bi-exclamation-triangle-fill text-danger fs-4 me-3"></i>
+                <div class="flex-grow-1 fw-500">
+                    @TempData["ErrorMessage"]
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-muted text-center">
+        <div class="container">
+            &copy; 2026 - SafeX Internship Freelancing Platform.
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
