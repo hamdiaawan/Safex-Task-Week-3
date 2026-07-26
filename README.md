@@ -47,19 +47,19 @@ A complete MVC Job Board module integrated alongside the Messaging Module. Inclu
 ## Setup & Migration commands
 1. Ensure a local SQL Server instance is running and configuration in `appsettings.json` matches your server.
 2. Initialize tools manifest and install EF tool:
-   ```powershell
+ 
    dotnet new tool-manifest
    dotnet tool install dotnet-ef
-   ```
+  
 3. Run the migrations to build the schema:
-   ```powershell
+   
    dotnet tool run dotnet-ef migrations add AddJobPostingModule
    dotnet tool run dotnet-ef database update
-   ```
+
 4. Run the application:
-   ```powershell
+   
    dotnet run
-   ```
+
 
 ## Routes & Testing
 - **Public Job Listings**: `http://localhost:5123/Job`
